@@ -22,7 +22,7 @@ public class AddressBookDetails
         addDetails();
     }
 
-    //Method to take Details from User
+    //Method to take Name from User
     public void addDetails()
     {
         scan.nextLine();
@@ -49,8 +49,8 @@ public class AddressBookDetails
         this.phoneNumber = scan.next();
     }
 
-    //Method to Edit Address Book
-    public void editDetails()
+    //Method to Edit and Delete record from Address Book
+    public void editOrDeleteDetails(int check)
     {
         System.out.println("Enter your First name");
         String firstName = scan.next();
@@ -60,7 +60,14 @@ public class AddressBookDetails
         {
             if(this.lastName.equals(lastName))
             {
-                addDetails();
+                switch (check)
+                {
+                    case 0:
+                        addDetails();
+                        break;
+                    case 1:
+                        break;
+                }
             }
             else
             {
