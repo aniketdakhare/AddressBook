@@ -116,12 +116,27 @@ public class AddressBookDetails
     //Method to Display Address Book Details
     public void display()
     {
+        boolean check=true;
+        System.out.println("Enter City Name");
+        String city=scan.next();
+        System.out.println("Enter State Name");
+        String state=scan.next();
         System.out.println("ADDRESS BOOK DETAILS : ");
         System.out.println("-----------------------------------------------------------------------------------------------------");
-        Iterator details=addressBookList.iterator();
-        while (details.hasNext())
+        for ( AddressBookDetails details : addressBookList)
         {
-            System.out.println(details.next());
+            if( details.city.equals(city) )
+            {
+                if(details.state.equals(state))
+                {
+                    check=false;
+                    System.out.println(details);
+                }
+            }
+        }
+        if (check==true)
+        {
+            System.out.println("Record does not exist");
         }
     }
 
@@ -129,7 +144,13 @@ public class AddressBookDetails
     public void sortByName()
     {
         addressBookList.sort(Comparator.comparing(AddressBookDetails::hashCode));
-        this.display();
+        System.out.println("ADDRESS BOOK DETAILS : ");
+        System.out.println("-----------------------------------------------------------------------------------------------------");
+        Iterator details=addressBookList.iterator();
+        while (details.hasNext())
+        {
+            System.out.println(details.next());
+        }
     }
 
 }
