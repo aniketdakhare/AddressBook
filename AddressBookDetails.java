@@ -22,7 +22,7 @@ public class AddressBookDetails
         addDetails();
     }
 
-    //Method to take Name from User
+    //Method to take Details from User
     public void addDetails()
     {
         scan.nextLine();
@@ -49,7 +49,25 @@ public class AddressBookDetails
         this.phoneNumber = scan.next();
     }
 
-
+    //Method to Edit Address Book
+    public void editDetails()
+    {
+        System.out.println("Enter your First name");
+        String firstName = scan.next();
+        System.out.println("Enter your Last name");
+        String lastName = scan.next();
+        if( this.firstName.equals(firstName) )
+        {
+            if(this.lastName.equals(lastName))
+            {
+                addDetails();
+            }
+            else
+            {
+                System.out.println("Record does not exist");
+            }
+        }
+    }
 
     //Method to Display Address Book Details
     public void display()
