@@ -140,7 +140,7 @@ public class AddressBookDetails
         }
     }
 
-    //Method to Sort Address Book details Alphabetically
+    //Method to Sort Address Book details Alphabetically and by Zipcode, city and state
     public void sortByName()
     {
         addressBookList.sort(Comparator.comparing(AddressBookDetails::hashCode));
