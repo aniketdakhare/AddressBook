@@ -41,6 +41,7 @@ public class AddressBookDetails
         addressBook.state = scan.nextLine();
         System.out.println("Enter your Zip code");
         addressBook.zipCode = scan.nextInt();
+        //To Check the 6 digit Zipcode
         int length = (int)(Math.log10(addressBook.zipCode)+1);
         while(length != 6)
         {
@@ -55,13 +56,14 @@ public class AddressBookDetails
         System.out.println("Enter your Phone Number");
         addressBook.phoneNumber = scan.next();
     }
-
+    //Overridden toString to print the details of address book
     @Override
     public String toString() {
         return "NAME: "+firstName+" "+lastName+"  "+"ADDRESS: "+address+"  "+"CITY: "+city+"  "+"STATE: "+state+"  "+"ZIPCODE: "+zipCode+"  "+"PHONE NO.: "+phoneNumber;
 
     }
-
+    
+    //Overridden in order to avoid duplicate entries
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,6 +86,7 @@ public class AddressBookDetails
         String firstName = scan.next();
         System.out.println("Enter your Last name");
         String lastName = scan.next();
+        //To select wheather to Edit or Delete the record
         for ( AddressBookDetails details : addressBookList)
         {
             if( details.firstName.equals(firstName) )
@@ -113,25 +116,20 @@ public class AddressBookDetails
         }
     }
 
-    //Method to Display Address Book Details
+    //Method to Display Address Book Details based on city name or state name
     public void display()
     {
         boolean check=true;
-        System.out.println("Enter City Name");
-        String city=scan.next();
-        System.out.println("Enter State Name");
-        String state=scan.next();
+        System.out.println("Enter City Name or State Name");
+        String place=scan.next();
         System.out.println("ADDRESS BOOK DETAILS : ");
         System.out.println("-----------------------------------------------------------------------------------------------------");
         for ( AddressBookDetails details : addressBookList)
         {
-            if( details.city.equals(city) )
+            if(( details.city.equals(place)) || (details.state.equals(place)))
             {
-                if(details.state.equals(state))
-                {
-                    check=false;
-                    System.out.println(details);
-                }
+                check=false;
+                System.out.println(details);
             }
         }
         if (check==true)
@@ -140,7 +138,7 @@ public class AddressBookDetails
         }
     }
 
-    //Method to Sort Address Book details Alphabetically and by Zipcode, city and state
+    //Method to Sort Address Book details Alphabetically
     public void sortByName()
     {
         addressBookList.sort(Comparator.comparing(AddressBookDetails::hashCode));
