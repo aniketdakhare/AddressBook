@@ -11,7 +11,7 @@ public class AddressBookMain
         boolean value=true;
         while(value==true)
         {
-            System.out.println("Select and enter the task you want to do \n1: Add details \n2: Display details \n3: Edit details \n4: Delete details \n5: Sort by Name \n6: Exit");
+            System.out.println("Select and enter the task you want to do \n1: Add details \n2: Display details \n3: Edit details \n4: Delete details \n5: Sort by name, city, zipcode or state \n6: Exit");
             int num=scan.nextInt();
             switch (num)
             {
@@ -32,7 +32,7 @@ public class AddressBookMain
                     System.out.println("==============================================================================================");
                     break;
                 case 5:
-                    addressBookDetails.sortByName();
+                    addressBookDetails.sortBy();
                     System.out.println("==============================================================================================");
                     break;
                 case 6:
