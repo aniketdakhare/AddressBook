@@ -62,7 +62,7 @@ public class AddressBookDetails
         return "NAME: "+firstName+" "+lastName+"  "+"ADDRESS: "+address+"  "+"CITY: "+city+"  "+"STATE: "+state+"  "+"ZIPCODE: "+zipCode+"  "+"PHONE NO.: "+phoneNumber;
 
     }
-    
+
     //Overridden in order to avoid duplicate entries
     @Override
     public boolean equals(Object o) {
@@ -138,10 +138,44 @@ public class AddressBookDetails
         }
     }
 
-    //Method to Sort Address Book details Alphabetically
-    public void sortByName()
+    //Method to Sort Address Book details by name, zipcode, city and state
+    public void sortBy()
     {
-        addressBookList.sort(Comparator.comparing(AddressBookDetails::hashCode));
+        System.out.println("Select the type of sorting you want to do. \n1: Sort by name \n2: Sort by ZipCode \n3: Sort by City \n4: Sort by State");
+        int select=scan.nextInt();
+        switch (select)
+        {
+            case 1:
+                addressBookList.sort(Comparator.comparing(AddressBookDetails::hashCode));
+                break;
+            case 2:
+                Collections.sort(addressBookList, new Comparator<AddressBookDetails>(){
+
+                    public int compare(AddressBookDetails bookDetails1,AddressBookDetails bookDetails2){
+                        return bookDetails2.zipCode-bookDetails1.zipCode;
+                    }
+                }.reversed());
+                break;
+            case 3:
+                Collections.sort(addressBookList, new Comparator<AddressBookDetails>(){
+
+                    public int compare(AddressBookDetails bookDetails1,AddressBookDetails bookDetails2){
+                        return bookDetails2.city.compareTo(bookDetails1.city);
+                    }
+                }.reversed());
+                break;
+            case 4:
+                Collections.sort(addressBookList, new Comparator<AddressBookDetails>(){
+
+                    public int compare(AddressBookDetails bookDetails1,AddressBookDetails bookDetails2){
+                        return bookDetails2.state.compareTo(bookDetails1.state);
+                    }
+                }.reversed());
+                break;
+            default:
+                System.out.println("Invalid Input");
+                break;
+        }
         System.out.println("ADDRESS BOOK DETAILS : ");
         System.out.println("-----------------------------------------------------------------------------------------------------");
         Iterator details=addressBookList.iterator();
