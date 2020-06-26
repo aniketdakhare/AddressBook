@@ -1,11 +1,15 @@
 package com.bridgelabz.addressbook.utility;
 
+import com.bridgelabz.addressbook.model.AddressBookContent;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AddressBookDetails
+public class AddressBookDetails implements AddressBookContent
 {
-    //Variables
+    /**
+     * Variables
+     */
     String firstName;
     String lastName;
     String address;
@@ -13,10 +17,12 @@ public class AddressBookDetails
     String state;
     String zipCode;
     String phoneNumber;
-    Scanner scan=new Scanner(System.in);
-    List<AddressBookDetails> addressBookList= new ArrayList<>();
+    Scanner scan = new Scanner(System.in);
+    List<AddressBookDetails> addressBookList = new ArrayList<>();
 
-    //Method to take Name from User
+    /**
+     * Method to take Name from User
+     */
     public void addName()
     {
         AddressBookDetails addressBook = new AddressBookDetails();
@@ -31,7 +37,10 @@ public class AddressBookDetails
                 .collect(Collectors.toList());
     }
 
-    //Method to take Name from User
+    /**
+     * Method to take User details
+     * @param addressBook defines particular record
+     */
     public void addDetails(AddressBookDetails addressBook)
     {
         scan.nextLine();
@@ -48,7 +57,7 @@ public class AddressBookDetails
         {
             System.out.println("enter 6 digit number");
             addressBook.zipCode = scan.next();
-            if(addressBook.zipCode.length()==6)
+            if(addressBook.zipCode.length() == 6)
             {
                 break;
             }
@@ -56,16 +65,24 @@ public class AddressBookDetails
         System.out.println("Enter your Phone Number");
         addressBook.phoneNumber = scan.next();
     }
-    //Overridden toString to print the details of address book
-    @Override
-    public String toString() {
-        return "NAME: "+firstName+" "+lastName+"  "+"ADDRESS: "+address+"  "+"CITY: "+city+"  "+"STATE: "+state+"  "+"ZIPCODE: "+zipCode+"  "+"PHONE NO.: "+phoneNumber;
 
+    /**
+     *Overridden toString to print the details of address book
+     * @return details of address book
+     */
+    @Override
+    public String toString()
+    {
+        return "NAME: "+firstName+" "+lastName+"  "+"ADDRESS: "+address+"  "+"CITY: "+
+                city+"  "+"STATE: "+state+"  "+"ZIPCODE: "+zipCode+"  "+"PHONE NO.: "+phoneNumber;
     }
 
-    //Overridden in order to avoid duplicate entries
+    /**
+     * Overridden in order to avoid duplicate entries
+     */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AddressBookDetails that = (AddressBookDetails) o;
@@ -74,11 +91,15 @@ public class AddressBookDetails
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(firstName, lastName);
     }
 
-    //Method to Edit and Delete record from Address Book
+    /**
+     * Method to Edit and Delete record from Address Book
+     * @param select is used to select edit or delete
+     */
     public void editOrDeleteDetails(int select)
     {
         boolean check = true;
@@ -94,7 +115,7 @@ public class AddressBookDetails
             {
                 if(details.lastName.equals(lastName))
                 {
-                    check=false;
+                    check = false;
                     switch (select)
                     {
                         case 0:
@@ -108,39 +129,45 @@ public class AddressBookDetails
             }
             record++;
         }
-        if (check==true)
+        if (check == true)
         {
             System.out.println("Record does not exist");
         }
     }
 
-    //Method to Display Address Book Details based on city name or state name
+    /**
+     * Method to Display Address Book Details based on city name or state name
+     */
     public void display()
     {
-        boolean check=true;
+        boolean check = true;
         System.out.println("Enter City Name or State Name");
-        String place=scan.next();
+        String place = scan.next();
         System.out.println("ADDRESS BOOK DETAILS : ");
-        System.out.println("-----------------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------" +
+                "---------------------");
         for ( AddressBookDetails details : addressBookList)
         {
             if(( details.city.equals(place)) || (details.state.equals(place)))
             {
-                check=false;
+                check = false;
                 System.out.println(details);
             }
         }
-        if (check==true)
+        if (check == true)
         {
             System.out.println("Record does not exist");
         }
     }
 
-    //Method to Sort Address Book details by name, zipcode, city and state
+    /**
+     * Method to Sort Address Book details by name, zipcode, city and state
+     */
     public void sortBy()
     {
-        System.out.println("Select the type of sorting you want to do. \n1: Sort by name \n2: Sort by ZipCode \n3: Sort by City \n4: Sort by State");
-        int select=scan.nextInt();
+        System.out.println("Select the type of sorting you want to do. \n1: Sort by name \n2: Sort by ZipCode" +
+                " \n3: Sort by City \n4: Sort by State");
+        int select = scan.nextInt();
         switch (select)
         {
             case 1:
@@ -148,7 +175,8 @@ public class AddressBookDetails
                 break;
             case 2:
                 addressBookList.sort(((Comparator<AddressBookDetails>)
-                        (bookDetails1, bookDetails2) -> bookDetails2.zipCode.compareTo(bookDetails1.zipCode)).reversed());
+                        (bookDetails1, bookDetails2) -> bookDetails2.zipCode.compareTo(bookDetails1.zipCode))
+                        .reversed());
                 break;
             case 3:
                 addressBookList.sort(((Comparator<AddressBookDetails>)
@@ -163,7 +191,8 @@ public class AddressBookDetails
                 break;
         }
         System.out.println("ADDRESS BOOK DETAILS : ");
-        System.out.println("-----------------------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------" +
+                "------------------------");
         addressBookList.forEach(System.out::println);
     }
 

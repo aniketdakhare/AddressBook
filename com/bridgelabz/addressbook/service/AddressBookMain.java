@@ -1,5 +1,6 @@
 package com.bridgelabz.addressbook.service;
 
+import com.bridgelabz.addressbook.model.AddressBookContent;
 import com.bridgelabz.addressbook.utility.AddressBookDetails;
 
 import java.util.InputMismatchException;
@@ -7,10 +8,12 @@ import java.util.Scanner;
 
 public class AddressBookMain
 {
-    AddressBookDetails addressBookDetails = new AddressBookDetails();
+    AddressBookContent addressBookContent = new AddressBookDetails();
     Scanner scan = new Scanner(System.in);
 
-    //Method to Select Task
+    /**
+     * Method to Select Task
+     */
     public void selectTask()
     {
         boolean value = true;
@@ -24,27 +27,27 @@ public class AddressBookMain
                 switch (num)
                 {
                     case 1:
-                        addressBookDetails.addName();
+                        addressBookContent.addName();
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 2:
-                        addressBookDetails.display();
+                        addressBookContent.display();
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 3:
-                        addressBookDetails.editOrDeleteDetails(0);
+                        addressBookContent.editOrDeleteDetails(0);
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 4:
-                        addressBookDetails.editOrDeleteDetails(1);
+                        addressBookContent.editOrDeleteDetails(1);
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 5:
-                        addressBookDetails.sortBy();
+                        addressBookContent.sortBy();
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
@@ -66,7 +69,9 @@ public class AddressBookMain
         }
     }
 
-    //Main Method
+    /**
+     * Main Method
+     */
     public static void main(String[] args)
     {
         System.out.println("Welcome to Address Book Program");
