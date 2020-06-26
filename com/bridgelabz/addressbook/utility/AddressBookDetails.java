@@ -1,3 +1,5 @@
+package com.bridgelabz.addressbook.utility;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,10 +11,10 @@ public class AddressBookDetails
     String address;
     String city;
     String state;
-    int zipCode;
+    String zipCode;
     String phoneNumber;
     Scanner scan=new Scanner(System.in);
-    List<AddressBookDetails> addressBookList= new ArrayList<AddressBookDetails>();
+    List<AddressBookDetails> addressBookList= new ArrayList<>();
 
     //Method to take Name from User
     public void addName()
@@ -40,15 +42,13 @@ public class AddressBookDetails
         System.out.println("Enter your State");
         addressBook.state = scan.nextLine();
         System.out.println("Enter your Zip code");
-        addressBook.zipCode = scan.nextInt();
+        addressBook.zipCode = scan.next();
         //To Check the 6 digit Zipcode
-        int length = (int)(Math.log10(addressBook.zipCode)+1);
-        while(length != 6)
+        while(addressBook.zipCode.length() != 6)
         {
             System.out.println("enter 6 digit number");
-            addressBook.zipCode = scan.nextInt();
-            length = (int)(Math.log10(addressBook.zipCode)+1);
-            if(length==6)
+            addressBook.zipCode = scan.next();
+            if(addressBook.zipCode.length()==6)
             {
                 break;
             }
@@ -86,7 +86,8 @@ public class AddressBookDetails
         String firstName = scan.next();
         System.out.println("Enter your Last name");
         String lastName = scan.next();
-        //To select wheather to Edit or Delete the record
+        //To select whether to Edit or Delete the record
+        int record = 0;
         for ( AddressBookDetails details : addressBookList)
         {
             if( details.firstName.equals(firstName) )
@@ -100,15 +101,12 @@ public class AddressBookDetails
                             addDetails(details);
                             break;
                         case 1:
-                            for (int num=0; num<addressBookList.size(); num++)
-                            {
-                                addressBookList.remove(num);
-                                break;
-                            }
+                            addressBookList.remove(record);
                             break;
                     }
                 }
             }
+            record++;
         }
         if (check==true)
         {
@@ -149,28 +147,16 @@ public class AddressBookDetails
                 addressBookList.sort(Comparator.comparing(AddressBookDetails::hashCode));
                 break;
             case 2:
-                Collections.sort(addressBookList, new Comparator<AddressBookDetails>(){
-
-                    public int compare(AddressBookDetails bookDetails1,AddressBookDetails bookDetails2){
-                        return bookDetails2.zipCode-bookDetails1.zipCode;
-                    }
-                }.reversed());
+                addressBookList.sort(((Comparator<AddressBookDetails>)
+                        (bookDetails1, bookDetails2) -> bookDetails2.zipCode.compareTo(bookDetails1.zipCode)).reversed());
                 break;
             case 3:
-                Collections.sort(addressBookList, new Comparator<AddressBookDetails>(){
-
-                    public int compare(AddressBookDetails bookDetails1,AddressBookDetails bookDetails2){
-                        return bookDetails2.city.compareTo(bookDetails1.city);
-                    }
-                }.reversed());
+                addressBookList.sort(((Comparator<AddressBookDetails>)
+                        (bookDetails1, bookDetails2) -> bookDetails2.city.compareTo(bookDetails1.city)).reversed());
                 break;
             case 4:
-                Collections.sort(addressBookList, new Comparator<AddressBookDetails>(){
-
-                    public int compare(AddressBookDetails bookDetails1,AddressBookDetails bookDetails2){
-                        return bookDetails2.state.compareTo(bookDetails1.state);
-                    }
-                }.reversed());
+                addressBookList.sort(((Comparator<AddressBookDetails>)
+                        (bookDetails1, bookDetails2) -> bookDetails2.state.compareTo(bookDetails1.state)).reversed());
                 break;
             default:
                 System.out.println("Invalid Input");
@@ -178,11 +164,7 @@ public class AddressBookDetails
         }
         System.out.println("ADDRESS BOOK DETAILS : ");
         System.out.println("-----------------------------------------------------------------------------------------------------");
-        Iterator details=addressBookList.iterator();
-        while (details.hasNext())
-        {
-            System.out.println(details.next());
-        }
+        addressBookList.forEach(System.out::println);
     }
 
 }
