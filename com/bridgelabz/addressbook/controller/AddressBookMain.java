@@ -65,7 +65,6 @@ public class AddressBookMain
                 System.out.println("Enter the valid required input.");
                 scan.next();
             }
-
         }
     }
 
