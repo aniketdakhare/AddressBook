@@ -1,8 +1,6 @@
-package com.bridgelabz.addressbook.model;
+package com.bridgelabz.addressbook.service;
 
-import com.bridgelabz.addressbook.utility.AddressBookDetails;
-
-public interface AddressBookContent
+public interface IAddressBookDetails
 {
     void addName();
     void addDetails(AddressBookDetails addressBook);

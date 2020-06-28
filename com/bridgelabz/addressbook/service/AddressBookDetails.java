@@ -1,11 +1,9 @@
-package com.bridgelabz.addressbook.utility;
-
-import com.bridgelabz.addressbook.model.AddressBookContent;
+package com.bridgelabz.addressbook.service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AddressBookDetails implements AddressBookContent
+public class AddressBookDetails implements IAddressBookDetails
 {
     /**
      * Variables
@@ -195,5 +193,4 @@ public class AddressBookDetails implements AddressBookContent
                 "------------------------");
         addressBookList.forEach(System.out::println);
     }
-
 }
