@@ -13,5 +13,5 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile "com.opencsv:opencsv:4.0"
-    compile files("C:\\Users\\Aniket\\IdeaProjects\\CSVBuilderJAR\\out\\artifacts\\CSVBuilderJAR_jar\\CSVBuilderJAR.jar")
+    compile 'com.google.code.gson:gson:2.2.+'
 }
