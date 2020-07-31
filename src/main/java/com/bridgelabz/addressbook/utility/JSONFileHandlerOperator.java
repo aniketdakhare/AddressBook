@@ -12,20 +12,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSONFileHandlerOperator
+public class JSONFileHandlerOperator implements IFileOperator
 {
-    public void jsonFileWriter(List<Person> addressBook, String jsonFilePath)
+    @Override
+    public void addressBookListToFile(List<Person> addressBook, String jsonFilePath)
     {
         JSONArray personList = new JSONArray();
         addressBook.forEach(person -> {
             JSONObject personDetails = new JSONObject();
-            personDetails.put("First Name", person.firstName);
-            personDetails.put("Last Name", person.lastName);
-            personDetails.put("Phone Number", person.phoneNumber);
-            personDetails.put("Address", person.address);
-            personDetails.put("City", person.city);
-            personDetails.put("State", person.state);
-            personDetails.put("Zipcode", person.zipCode);
+            personDetails.put("First Name", person.getFirstName());
+            personDetails.put("Last Name", person.getLastName());
+            personDetails.put("Phone Number", person.getPhoneNumber());
+            personDetails.put("Address", person.getAddress());
+            personDetails.put("City", person.getCity());
+            personDetails.put("State", person.getState());
+            personDetails.put("Zipcode", person.getZipCode());
             JSONObject personObject = new JSONObject();
             personObject.put("person", personDetails);
             personList.add(personObject);
@@ -41,7 +42,8 @@ public class JSONFileHandlerOperator
         }
     }
 
-    public List<Person> jsonFileReader(String jsonFilePath)
+    @Override
+    public List<Person> addressBookFileToList(String jsonFilePath)
     {
         JSONParser jsonParser = new JSONParser();
         List<Person> addressBook = new ArrayList<>();

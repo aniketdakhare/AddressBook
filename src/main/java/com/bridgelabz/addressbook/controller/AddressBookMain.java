@@ -2,19 +2,38 @@ package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.service.AddressBookDetails;
 import com.bridgelabz.addressbook.service.IAddressBookDetails;
+import com.bridgelabz.addressbook.utility.CSVFileOperator;
+import com.bridgelabz.addressbook.utility.JSONFileHandlerOperator;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AddressBookMain
 {
-    IAddressBookDetails addressBookDetails = new AddressBookDetails();
+    IAddressBookDetails addressBookDetails;
     Scanner scan = new Scanner(System.in);
+
+    private void selectFileOperator()
+    {
+        System.out.println("\nSelect & enter the file operation you want to do: \n1: JSON File using file handler." +
+                " \n2: CSV File.");
+        int value = scan.nextInt();
+        switch (value)
+        {
+            case 1:
+                addressBookDetails = new AddressBookDetails(new JSONFileHandlerOperator(), "AddressBook.json");
+                break;
+            case 2:
+                addressBookDetails = new AddressBookDetails(new CSVFileOperator(), "C:\\Users\\Aniket\\IdeaProjects\\AddressBookProblem\\AddressBook.csv");
+                break;
+        }
+        this.selectTask();
+    }
 
     /**
      * Method to Select Task
      */
-    public void selectTask()
+    private void selectTask()
     {
         boolean value = true;
         while(value)
@@ -75,6 +94,6 @@ public class AddressBookMain
     {
         System.out.println("Welcome to Address Book Program");
         AddressBookMain addressBookMain = new AddressBookMain();
-        addressBookMain.selectTask();
+        addressBookMain.selectFileOperator();
     }
 }
