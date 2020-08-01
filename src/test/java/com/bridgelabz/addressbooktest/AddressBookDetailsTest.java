@@ -1,6 +1,8 @@
 package com.bridgelabz.addressbooktest;
 
+import com.bridgelabz.addressbook.model.Person;
 import com.bridgelabz.addressbook.service.AddressBookDetails;
+import com.bridgelabz.addressbook.utility.JSONFileHandlerOperator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,12 +13,12 @@ public class AddressBookDetailsTest
     @Before
     public void setUp()
     {
-        addressBookDetails = new AddressBookDetails();
+        addressBookDetails = new AddressBookDetails(new JSONFileHandlerOperator(), "AddressBook.json");
     }
 
     @Test
     public void givenPersonDetails_WhenAddedToAddressBook_ShouldReturnTrue()
     {
-        addressBookDetails.addName();
+        addressBookDetails.addDetails(new Person());
     }
 }

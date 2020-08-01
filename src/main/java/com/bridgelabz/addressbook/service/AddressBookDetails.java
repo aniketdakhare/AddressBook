@@ -2,6 +2,7 @@ package com.bridgelabz.addressbook.service;
 
 import com.bridgelabz.addressbook.model.Person;
 import com.bridgelabz.addressbook.utility.IFileOperator;
+import com.bridgelabz.addressbook.utility.UserInputs;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,9 +10,9 @@ import java.util.stream.Collectors;
 public class AddressBookDetails implements IAddressBookDetails
 {
     String addressBook;
-    Scanner scan = new Scanner(System.in);
     IFileOperator fileOperator;
     List<Person> addressBookList;
+
 
     public AddressBookDetails(IFileOperator fileOperator, String addressBook)
     {
@@ -21,47 +22,12 @@ public class AddressBookDetails implements IAddressBookDetails
     }
 
     /**
-     * Method to take Name from User
-     */
-    @Override
-    public void addName()
-    {
-        Person person = new Person();
-        System.out.println("Enter your First Name");
-        person.firstName = scan.next();
-        System.out.println("Enter your Last Name");
-        person.lastName = scan.next();
-        addDetails(person);
-    }
-
-    /**
      * Method to take User details
      * @param person defines particular record
      */
     @Override
     public void addDetails(Person person)
     {
-        scan.nextLine();
-        System.out.println("Enter your Address");
-        person.address = scan.nextLine();
-        System.out.println("Enter your City");
-        person.city = scan.nextLine();
-        System.out.println("Enter your State");
-        person.state = scan.nextLine();
-        System.out.println("Enter your Zip code");
-        person.zipCode = scan.next();
-        //To Check the 6 digit Zipcode
-        while(person.zipCode.length() != 6)
-        {
-            System.out.println("enter 6 digit number");
-            person.zipCode = scan.next();
-            if(person.zipCode.length() == 6)
-            {
-                break;
-            }
-        }
-        System.out.println("Enter your Phone Number");
-        person.phoneNumber = scan.next();
         addressBookList.add(person);
         addressBookList = addressBookList.stream()
                 .distinct()
@@ -70,34 +36,34 @@ public class AddressBookDetails implements IAddressBookDetails
     }
 
     /**
-     * Method to Edit and Delete record from Address Book
-     * @param select is used to select edit or delete
+     * Method to Edit record from Address Book
      */
     @Override
-    public void editOrDeleteDetails(int select)
+    public void editDetails(String firstName, String lastName)
     {
-        System.out.println("Enter your First name");
-        String firstName = scan.next();
-        System.out.println("Enter your Last name");
-        String lastName = scan.next();
-        //To select whether to Edit or Delete the record
         Person personDetails = addressBookList.stream()
                 .filter(details -> details.getFirstName().equals(firstName) && details.getLastName().equals(lastName))
                 .findFirst().orElse(null);
-        switch (select)
-        {
-            case 0:
-                assert personDetails != null;
-                addDetails(personDetails);
-                break;
-            case 1:
-                addressBookList.remove(personDetails);
-                break;
-        }
-        if (personDetails == null)
-        {
+        if (personDetails != null)
+            addDetails(new UserInputs().addDetails(personDetails));
+        else
             System.out.println("Record does not exist");
-        }
+        fileOperator.addressBookListToFile(addressBookList, addressBook);
+    }
+
+    /**
+     * Method to Delete record from Address Book
+     */
+    @Override
+    public void deleteDetails(String firstName, String lastName)
+    {
+        Person personDetails = addressBookList.stream()
+                .filter(details -> details.getFirstName().equals(firstName) && details.getLastName().equals(lastName))
+                .findFirst().orElse(null);
+        if (personDetails != null)
+            addressBookList.remove(personDetails);
+        else
+            System.out.println("Record does not exist");
         fileOperator.addressBookListToFile(addressBookList, addressBook);
     }
 
@@ -105,11 +71,9 @@ public class AddressBookDetails implements IAddressBookDetails
      * Method to Display Address Book Details based on city name or state name
      */
     @Override
-    public void display()
+    public void display(String place)
     {
         List<Person> addressBookDetails = fileOperator.addressBookFileToList(addressBook);
-        System.out.println("Enter City Name or State Name");
-        String place = scan.next();
         System.out.println("ADDRESS BOOK DETAILS : ");
         System.out.println("--------------------------------------------------------------------------------" +
                 "---------------------");
@@ -127,12 +91,9 @@ public class AddressBookDetails implements IAddressBookDetails
      * Method to Sort Address Book details by name, zipcode, city and state
      */
     @Override
-    public void sortBy()
+    public void sortBy(int select)
     {
         List<Person> addressBookDetails = fileOperator.addressBookFileToList(addressBook);
-        System.out.println("Select the type of sorting you want to do. \n1: Sort by name \n2: Sort by ZipCode" +
-                " \n3: Sort by City \n4: Sort by State");
-        int select = scan.nextInt();
         switch (select)
         {
             case 1:

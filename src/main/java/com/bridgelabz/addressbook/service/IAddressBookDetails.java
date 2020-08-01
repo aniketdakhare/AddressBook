@@ -4,9 +4,9 @@ import com.bridgelabz.addressbook.model.Person;
 
 public interface IAddressBookDetails
 {
-    void addName();
     void addDetails(Person person);
-    void editOrDeleteDetails(int select);
-    void display();
-    void sortBy();
+    void editDetails(String firstName, String lastName);
+    void deleteDetails(String firstName, String lastName);
+    void display(String place);
+    void sortBy(int select);
 }

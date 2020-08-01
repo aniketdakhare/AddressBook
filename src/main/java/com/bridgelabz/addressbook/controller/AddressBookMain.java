@@ -5,6 +5,7 @@ import com.bridgelabz.addressbook.service.IAddressBookDetails;
 import com.bridgelabz.addressbook.utility.CSVFileOperator;
 import com.bridgelabz.addressbook.utility.JSONFileHandlerOperator;
 import com.bridgelabz.addressbook.utility.JSONGsonLibraryOperator;
+import com.bridgelabz.addressbook.utility.UserInputs;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class AddressBookMain
 {
     IAddressBookDetails addressBookDetails;
+    UserInputs userInputs = new UserInputs();
     Scanner scan = new Scanner(System.in);
 
     private void selectFileOperator()
@@ -49,27 +51,29 @@ public class AddressBookMain
                 switch (num)
                 {
                     case 1:
-                        addressBookDetails.addName();
+                        addressBookDetails.addDetails(userInputs.addName());
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 2:
-                        addressBookDetails.display();
+                        addressBookDetails.display(userInputs.display());
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 3:
-                        addressBookDetails.editOrDeleteDetails(0);
+                        String[] name = userInputs.editOrDeleteDetails();
+                        addressBookDetails.editDetails(name[0], name[1]);
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 4:
-                        addressBookDetails.editOrDeleteDetails(1);
+                        String[] personName = userInputs.editOrDeleteDetails();
+                        addressBookDetails.deleteDetails(personName[0], personName[1]);
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
                     case 5:
-                        addressBookDetails.sortBy();
+                        addressBookDetails.sortBy(userInputs.sortBy());
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
