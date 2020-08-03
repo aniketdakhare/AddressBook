@@ -1,0 +1,54 @@
+{
+  "AddressBook": [
+    {
+      "id": 1,
+      "firstName": "Aniket",
+      "lastName": "Dakhare",
+      "address": "Dhanori",
+      "city": "pune",
+      "state": "Maharashtra",
+      "zipCode": "432456",
+      "phone": "9090909090"
+    },
+    {
+      "id": 2,
+      "firstName": "Nikhil",
+      "lastName": "Pattar",
+      "address": "Karve Nagar",
+      "city": "Panji",
+      "state": "Goa",
+      "zipCode": "234567",
+      "phone": "9879879876"
+    },
+    {
+      "firstName": "Snehal",
+      "lastName": "Gunde",
+      "address": "Shri Ram Nagar",
+      "city": "Bhadrawati",
+      "state": "Bihar",
+      "zipCode": "878786",
+      "phone": "87878987",
+      "id": 3
+    },
+    {
+      "firstName": "Snehal",
+      "lastName": "Gunde",
+      "address": "Shri Ram Nagar",
+      "city": "Bhadrawati",
+      "state": "Bihar",
+      "zipCode": "878786",
+      "phone": "87878987",
+      "id": 5
+    },
+    {
+      "firstName": "Snehal",
+      "lastName": "Gunde",
+      "address": "Shri Ram Nagar",
+      "city": "Bhadrawati",
+      "state": "Bihar",
+      "zipCode": "878786",
+      "phone": "87878987",
+      "id": 6
+    }
+  ]
+}
