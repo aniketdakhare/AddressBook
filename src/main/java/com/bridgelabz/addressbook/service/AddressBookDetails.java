@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class AddressBookDetails implements IAddressBookDetails
 {
-    String addressBook;
-    IFileOperator fileOperator;
-    List<Person> addressBookList;
+    private final String addressBook;
+    private final IFileOperator fileOperator;
+    private List<Person> addressBookList;
 
 
     public AddressBookDetails(IFileOperator fileOperator, String addressBook)
@@ -33,6 +33,11 @@ public class AddressBookDetails implements IAddressBookDetails
                 .distinct()
                 .collect(Collectors.toList());
         fileOperator.addressBookListToFile(addressBookList, addressBook);
+    }
+
+    public boolean isPersonDetailsPresent(Person person)
+    {
+        return addressBookList.contains(person);
     }
 
     /**

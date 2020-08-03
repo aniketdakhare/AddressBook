@@ -12,9 +12,9 @@ import java.util.Scanner;
 
 public class AddressBookMain
 {
-    IAddressBookDetails addressBookDetails;
-    UserInputs userInputs = new UserInputs();
-    Scanner scan = new Scanner(System.in);
+    private IAddressBookDetails addressBookDetails;
+    private final UserInputs userInputs = new UserInputs();
+    private final Scanner scan = new Scanner(System.in);
 
     private void selectFileOperator()
     {
@@ -45,13 +45,14 @@ public class AddressBookMain
         {
             try
             {
-                System.out.println("\nSelect & enter the task you want to do: \n1: Add details \n2: Display details " +
-                        "\n3: Edit details \n4: Delete details \n5: Sort by name, city, zipcode or state \n6: Exit");
+                System.out.println("\nSelect & enter the task you want to do: \n1: Add details \n2: Display details by" +
+                        " State or City name \n3: Edit details \n4: Delete details \n5: Display address book details" +
+                        " Sorted by name, city, zipcode or state \n6: Exit");
                 int num = scan.nextInt();
                 switch (num)
                 {
                     case 1:
-                        addressBookDetails.addDetails(userInputs.addName());
+                        addressBookDetails.addDetails(userInputs.addPerson());
                         System.out.println("===============================================================" +
                                 "===============================");
                         break;
