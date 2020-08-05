@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.service.AddressBookDetails;
+import com.bridgelabz.addressbook.service.AddressBookDetailsDB;
 import com.bridgelabz.addressbook.service.IAddressBookDetails;
 import com.bridgelabz.addressbook.utility.CSVFileOperator;
 import com.bridgelabz.addressbook.utility.JSONFileHandlerOperator;
@@ -19,7 +20,7 @@ public class AddressBookMain
     private void selectFileOperator()
     {
         System.out.println("\nSelect & enter the file operation you want to do: \n1: JSON File using file handler." +
-                " \n2: CSV File. \n3: JSON File using GSON Library.");
+                " \n2: CSV File. \n3: JSON File using GSON Library \n4: DataBase.");
         int value = scan.nextInt();
         switch (value)
         {
@@ -31,6 +32,9 @@ public class AddressBookMain
                 break;
             case 3:
                 addressBookDetails = new AddressBookDetails(new JSONGsonLibraryOperator(), "C:\\Users\\Aniket\\IdeaProjects\\AddressBookProblem\\AddressBookDetails.json");
+                break;
+            case 4:
+                addressBookDetails = new AddressBookDetailsDB();
         }
         this.selectTask();
     }

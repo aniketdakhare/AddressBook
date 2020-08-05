@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class UserInputs
 {
-    private final Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in).useDelimiter("\n");
     private final String PATTERN = "^[a-zA-Z]{1,}$";
 
     /**
@@ -50,6 +50,7 @@ public class UserInputs
                     break;
                 case 4:
                     this.addZipCode(person);
+                    break;
                 case 5:
                     this.addPhoneNumber(person);
                     break;
@@ -89,15 +90,15 @@ public class UserInputs
         } while (!validateInput(person.lastName, PATTERN));
     }
 
-    private void addAddress(Person person)
+    public void addAddress(Person person)
     {
         do {
             System.out.println("Enter your Address");
             person.address = scan.next();
-        } while (!validateInput(person.address, "^[a-zA-Z0-9,-/#&@.]{1,}$"));
+        } while (!validateInput(person.address, "^[a-zA-Z0-9,-/#&@. ]{1,}$"));
     }
 
-    private void addCity(Person person)
+    public void addCity(Person person)
     {
         do {
             System.out.println("Enter your City");
@@ -105,7 +106,7 @@ public class UserInputs
         } while (!validateInput(person.city, PATTERN));
     }
 
-    private void addState(Person person)
+    public void addState(Person person)
     {
         do {
             System.out.println("Enter your State");
@@ -113,7 +114,7 @@ public class UserInputs
         } while (!validateInput(person.state, PATTERN));
     }
 
-    private void addZipCode(Person person)
+    public void addZipCode(Person person)
     {
         do {
             System.out.println("Enter your Zip code");
@@ -121,7 +122,7 @@ public class UserInputs
         } while (!validateInput(person.zipCode, "^[1-9][0-9]{5}$"));
     }
 
-    private void addPhoneNumber(Person person)
+    public void addPhoneNumber(Person person)
     {
         do {
             System.out.println("Enter your Phone Number");
@@ -154,7 +155,7 @@ public class UserInputs
         return select;
     }
 
-    private int selectFieldToEdit()
+    public int selectFieldToEdit()
     {
         System.out.println("Select field to edit details. \n1: Address \n2: City" +
                 " \n3: State \n4: Zipcode \n5: Phone Number \n6: Save and Exit");
