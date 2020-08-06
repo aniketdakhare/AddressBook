@@ -5,30 +5,15 @@ import com.bridgelabz.addressbook.utility.UserInputs;
 
 import java.sql.*;
 
-public class AddressBookDetailsDB implements IAddressBookDetails
+public class AddressBookDetailsDB extends DBConnection implements IAddressBookDetails
 {
-    private Connection connection = null;
-    private Statement statement = null;
-    private ResultSet resultSet = null;
     private UserInputs userInputs = new UserInputs();
-
-    {
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/addressbook","root","sql@234");
-        }
-        catch (ClassNotFoundException | SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void addDetails(Person person)
     {
         String query ="INSERT INTO person VALUES(0,'" + person.firstName + " " + person.lastName + "','"
-                + person.address + "','" + person.city + "','" + person.state + "','" + person.zipCode
+                + person.city + "','" + person.zipCode + "','" + person.state + "','" + person.address
                 + "','" + person.phoneNumber + "');";
         this.manipulatingPersonDetails(query);
     }
@@ -96,36 +81,15 @@ public class AddressBookDetailsDB implements IAddressBookDetails
     @Override
     public void sortBy(int select)
     {
-        String query;
-        switch (select)
-        {
-            case 1:
-                query = "SELECT * FROM person ORDER BY name ASC";
-                this.displayPersonDetails(query);
-                break;
-            case 2:
-                query = "SELECT * FROM person ORDER BY zipcode ASC";
-                this.displayPersonDetails(query);
-                break;
-            case 3:
-                query = "SELECT * FROM person ORDER BY city ASC";
-                this.displayPersonDetails(query);
-                break;
-            case 4:
-                query = "SELECT * FROM person ORDER BY state ASC";
-                this.displayPersonDetails(query);
-                break;
-            default:
-                System.out.println("Invalid Input");
-                break;
-        }
+        String query = "SELECT * FROM person ORDER BY "+ (select+1) +" ASC";
+        this.displayPersonDetails(query);
     }
 
     private void manipulatingPersonDetails(String query)
     {
-        try
+        try(Connection connection = super.getConnection();
+            Statement statement = connection.createStatement())
         {
-            statement =connection.createStatement();
             statement.executeUpdate(query);
         }
         catch (SQLException e)
@@ -136,10 +100,10 @@ public class AddressBookDetailsDB implements IAddressBookDetails
 
     private void displayPersonDetails(String query)
     {
-        try
+        try(Connection connection = super.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query))
         {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
             while(resultSet.next())
             {			System.out.println("--------------------------------------------------------" +
                     "--------------------------------------------------------");
